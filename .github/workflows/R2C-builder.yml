@@ -15,6 +15,9 @@ name: R2C Builder
 on:
   repository_dispatch:
   workflow_dispatch:
+  push:
+    tags:
+      - release-r2c*
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
