@@ -54,16 +54,6 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
-    - name: Install Newer Go
-      run: |
-        wget https://go.dev/dl/go1.22.6.linux-amd64.tar.gz
-        sudo tar -C /usr/local -xzf go1.22.6.linux-amd64.tar.gz
-        echo "/usr/local/go/bin" >> $GITHUB_PATH
-        go version
-
-    - name: Set GOROOT_BOOTSTRAP
-      run: echo "GOROOT_BOOTSTRAP=/usr/local/go" >> $GITHUB_ENV
-
     - name: Clone source code
       working-directory: /workdir
       run: |
@@ -90,9 +80,6 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: Clean old Go tarballs
-      run: rm -rf dl/go*.tar.gz
-        
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
